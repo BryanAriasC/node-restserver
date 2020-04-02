@@ -106,16 +106,12 @@ app.post('/google', async(req, res) => {
             });
         });
 
-    /*return res.json({
-        usuario: googleUser
-    });*/
-
-
     Usuario.findOne({ email: googleUser.email }, (err, usuarioDB) => {
 
         if (err) {
             return res.status(500).json({
                 ok: false,
+                sale: "aaa",
                 err
             });
         }
@@ -131,7 +127,7 @@ app.post('/google', async(req, res) => {
             } else {
                 let token = jwt.sign({
                     usuario: usuarioDB
-                }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKE });
+                }, procees.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKE });
 
                 return res.json({
                     ok: true,
@@ -151,16 +147,14 @@ app.post('/google', async(req, res) => {
 
             usuario.save((err, usuarioDB) => {
 
-                if (err) {
-                    return res.status(500).json({
-                        ok: false,
-                        err
-                    });
-                }
+                return res.status(500).json({
+                    ok: false,
+                    err
+                });
 
                 let token = jwt.sign({
                     usuario: usuarioDB
-                }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKE });
+                }, procees.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKE });
 
                 return res.json({
                     ok: true,
